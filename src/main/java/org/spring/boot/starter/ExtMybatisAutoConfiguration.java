@@ -6,6 +6,8 @@ import com.ext.mybatisext.helper.ArrayTypeHandlerExt;
 import com.ext.mybatisext.helper.SmartDate;
 import com.ext.mybatisext.helper.SmartDateTypeHandler;
 import com.ext.mybatisext.helper.SqlSessionFactoryHolder;
+import com.ext.mybatisext.interceptor.CommonMapperInterceptor;
+import com.ext.mybatisext.interceptor.GenericMapperInterceptor;
 import com.ext.mybatisext.interceptor.MyBatisInterceptor;
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
@@ -23,7 +25,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.io.ResourceLoader;
 
 import javax.sql.DataSource;
@@ -39,6 +43,7 @@ import java.util.List;
 @ConditionalOnBean({DataSource.class})
 @EnableConfigurationProperties({MybatisProperties.class})
 @AutoConfigureAfter({DataSourceAutoConfiguration.class})
+@Import(MybatisConfiguration.class)
 public class ExtMybatisAutoConfiguration extends MybatisAutoConfiguration {
     private static final Log logger = LogFactory.getLog(ExtMybatisAutoConfiguration.class);
 
@@ -48,13 +53,17 @@ public class ExtMybatisAutoConfiguration extends MybatisAutoConfiguration {
     private  DatabaseIdProvider databaseIdProvider;
     private  List<ConfigurationCustomizer> configurationCustomizers;
 
+
     @Autowired
-     private MyBatisInterceptor[] myBatisInterceptors;
+    private MyBatisInterceptor[] myBatisInterceptors;
+
 
 
     public ExtMybatisAutoConfiguration(MybatisProperties properties, ObjectProvider<Interceptor[]> interceptorsProvider, ResourceLoader resourceLoader, ObjectProvider<DatabaseIdProvider> databaseIdProvider, ObjectProvider<List<ConfigurationCustomizer>> configurationCustomizersProvider) {
         super(properties, interceptorsProvider, resourceLoader, databaseIdProvider, configurationCustomizersProvider);
     }
+
+
 
 
 

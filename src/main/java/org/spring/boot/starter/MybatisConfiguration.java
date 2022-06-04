@@ -12,6 +12,7 @@ import com.ext.mybatisext.plugin.SQLPrintPlugin;
 import com.ext.mybatisext.plugin.paging.PagingPlugin;
 import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,11 +22,26 @@ import javax.sql.DataSource;
  * @author 87260
  */
 @Configuration
+@ConditionalOnBean({DataSource.class})
 public class MybatisConfiguration {
 
 
     @Autowired
     DataSource dataSource;
+
+
+    /**
+     * 定义拦截器处理
+     * @return
+     */
+    @Bean
+    public MyBatisInterceptor[] getInterceptors(){
+        return new MyBatisInterceptor[]{
+                new CommonMapperInterceptor(),
+                new GenericMapperInterceptor()};
+    }
+
+
 
     /**
      *  加载自定义插件,设置Map值的key为驼峰处理
@@ -45,16 +61,6 @@ public class MybatisConfiguration {
         };
     }
 
-    /**
-     * 加载定义拦截器处理
-     * @return
-     */
-    @Bean(name="myBatisInterceptor")
-    public MyBatisInterceptor[] getInterceptors(){
-        return new MyBatisInterceptor[]{
-                new CommonMapperInterceptor(),
-                new GenericMapperInterceptor()};
-    }
 
 
 
