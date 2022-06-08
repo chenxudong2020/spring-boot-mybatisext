@@ -78,6 +78,7 @@ public class ExtMybatisAutoConfiguration extends MybatisAutoConfiguration {
     }
 
 
+    @Bean
     @Override
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         SqlSessionFactory factory=super.sqlSessionFactory(dataSource);
