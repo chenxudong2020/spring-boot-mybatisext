@@ -57,7 +57,7 @@ public class MybatisConfiguration {
             configuration.addInterceptor(new IdentityPlugin());
             configuration.addInterceptor(new BatchPlugin());
             //TODO 设置Map值的key为驼峰处理
-            configuration.setObjectWrapperFactory(new ExtObjectWrapperFactory());
+            //configuration.setObjectWrapperFactory(new ExtObjectWrapperFactory());
         };
     }
 
