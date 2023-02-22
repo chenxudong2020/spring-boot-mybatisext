@@ -6,8 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="spring-ext" />
         <module name="spring-boot-mybatisext" />
+        <module name="spring-ext" />
       </profile>
     </annotationProcessing>
   </component>
